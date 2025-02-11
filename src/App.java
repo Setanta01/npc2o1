@@ -125,7 +125,9 @@ public class App {
                 
                 // Exibir na tela
                 System.out.println("Relatórios gerados para a disciplina " + nomeDisciplina + "!");
-                on2 = false;
+                    init = 0;
+                    on1 = false;
+                    break;
             }
         }
     }
