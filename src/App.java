@@ -96,16 +96,27 @@ public class App {
                 br.close();
 
                 // Solicita o gabarito da prova
-                String gabarito = "";
-                boolean gabaritoValido = false;
-                while (!gabaritoValido) {
-                    System.out.println("Digite o gabarito da prova (10 respostas no formato V ou F):");
-                    gabarito = a.nextLine();
-                    if (gabarito.length() == 10 && gabarito.matches("[VFvf]{10}")) {
-                        gabaritoValido = true;
-                    } else {
-                        System.out.println("Erro: O gabarito deve ter exatamente 10 caracteres e apenas 'V' ou 'F'. Tente novamente.");
-                    }
+                System.out.println("Digite o caminho do arquivo de gabarito:");
+                String caminhoGabarito = a.nextLine();
+                
+                File arquivoGabarito = new File(caminhoGabarito);
+                if (!arquivoGabarito.exists()) {
+                    System.out.println("Erro: Arquivo de gabarito não encontrado.");
+                    continue;
+                }
+                
+                BufferedReader brGabarito = new BufferedReader(new FileReader(arquivoGabarito));
+                StringBuilder sb = new StringBuilder();
+                String linhaGabarito;
+                while ((linhaGabarito = brGabarito.readLine()) != null) {
+                    sb.append(linhaGabarito);
+                }
+                brGabarito.close();
+                String gabarito = sb.toString();
+
+                if (gabarito.isEmpty() || gabarito.length() != 10 || !gabarito.matches("[VFvf]{10}")) {
+                    System.out.println("Erro: O gabarito deve ter exatamente 10 caracteres e conter apenas 'V' ou 'F'.");
+                    continue;
                 }
 
                 // Gerar relatórios
