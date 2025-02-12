@@ -133,20 +133,24 @@ public class App {
     }
 
     // Método para calcular os acertos de um aluno
-    public static int calcularAcertos(String respostasAluno, String gabarito) {
-        int acertos = 0;
-        // Verifica se as strings têm comprimento 10
-        if (respostasAluno.length() != 10 || gabarito.length() != 10) {
-            return 0; // Caso alguma string tenha comprimento incorreto, retorna 0 acertos
-        }
+public static int calcularAcertos(String respostasAluno, String gabarito) {
+    respostasAluno = respostasAluno.toLowerCase();
+    gabarito = gabarito.toLowerCase();
 
-        for (int i = 0; i < gabarito.length(); i++) {
-            if (respostasAluno.charAt(i) == gabarito.charAt(i)) {
-                acertos++;
-            }
-        }
-        return acertos;
+    int tamanho = respostasAluno.length();
+
+    if (tamanho == 0 || respostasAluno.equals("f".repeat(tamanho)) || respostasAluno.equals("v".repeat(tamanho))) {
+        return 0;
     }
+
+    int acertos = 0;
+    for (int i = 0; i < tamanho; i++) {
+        if (i < 10 && respostasAluno.charAt(i) == gabarito.charAt(i)) {
+            acertos++;
+        }
+    }
+    return acertos;
+}   
 
     // Método para gerar o relatório alfabético
     public static void gerarRelatorioAlfabetico(List<String[]> respostas, String gabarito, String nomeDisciplina) throws IOException {
